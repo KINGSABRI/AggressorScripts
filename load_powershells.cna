@@ -6,9 +6,9 @@
 # 1. Modify/Add your script pathes in global variable section
 # 2. Import into Cobalt Strike
 # 3. From beacon try
-# 	beacon> load_powerview
-# 	beacon> load_powerup
-# 	beacon> load_powerupsql
+#     beacon> load_powerview
+#     beacon> load_powerup
+#     beacon> load_powerupsql
 
 ### Output ###
 #	powershell-import task gets exected
