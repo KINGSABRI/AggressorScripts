@@ -11,7 +11,7 @@
 #     beacon> load_powerupsql
 
 ### Output ###
-#	powershell-import task gets exected
+# powershell-import task gets exected
 
 ### Global variables section
 global('$powerview_path $powerup_path $powerupsql_path $kerberoast_path');
