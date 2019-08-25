@@ -3,7 +3,7 @@
 ###  Author: Sabri (@KINGSABRI)
 
 ### Usage ###
-# 1. Edit $teamserver, $slack_webhook, $slack_webhook
+# 1. Edit $teamserver, $slack_webhook, $bot_name and $slack_webhook
 # 2. run it as a headless: ./agscript 127.0.0.1 50050 SlackNotify PASSWORD slack-notify.cna
 ### Output ###
 # Check your slack ;)
@@ -11,6 +11,7 @@
 
 $teamserver    = "Main C2";
 $slack_channel = "#Hell";
+$bot_name      = "CS-Bot";
 $slack_webhook = "https://hooks.slack.com/services/XXX/YYY/ZZZ";
 
 on beacon_initial {
@@ -19,7 +20,7 @@ on beacon_initial {
   $host     = $beacon['host'];
   $computer = $beacon['computer'];
   $pid      = $beacon['pid'];
-  $message  = 'payload={"attachments": [{"color": "danger","author_name": "' . $teamserver . '", "fallback": "New Beacon ' . $teamserver . ' | ' . $pid . '", "fields": [{"title": "' . $user . '@' . $host . ' (' . $computer . ')","short": false}],"footer": "PID: ' . $pid . '"}]}';
+  $message  = 'payload={"username": "'. $bot_name .'", "channel": "'. $slack_channel .'","attachments": [{"color": "danger","author_name": "' . $teamserver . '", "fallback": "New Beacon ' . $teamserver . ' | ' . $pid . '", "fields": [{"title": "' . $user . '@' . $host . ' (' . $computer . ')","short": false}],"footer": "PID: ' . $pid . '"}]}';
   @curl_command = @('curl','-X','POST','--data-urlencode', $message, $slack_webhook);
   exec(@curl_command);
 }
