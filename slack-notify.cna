@@ -6,8 +6,7 @@
 # 1. Edit $teamserver, $slack_webhook, $bot_name and $slack_webhook
 # 2. run it as a headless: ./agscript 127.0.0.1 50050 SlackNotify PASSWORD slack-notify.cna
 ### Output ###
-# Check your slack ;)
-
+# Get a beacon and check your slack ;)
 
 $teamserver    = "Main C2";
 $slack_channel = "#Hell";
