@@ -1,0 +1,30 @@
+#### Notify Beacon
+## Aggressor script to simplify run Windows desktop notification when you get a new beacon
+###  Author: Sabri (@KINGSABRI)
+
+### Usage ###
+# - the powershell is installed on Windows by default
+### Output ###
+# Get a beacon and you will get desktop notifications
+
+on beacon_initial {
+  $beacon   = binfo($1);
+  $user     = $beacon['user'];
+  $host     = $beacon['host'];
+  $computer = $beacon['computer'];
+  $pid      = $beacon['pid'];
+  $title    = "New Beacon!";
+  $message .= '[reflection.assembly]::loadwithpartialname("System.Windows.Forms");[reflection.assembly]::loadwithpartialname("System.Drawing");';
+  $message .= '$notify = new-object system.windows.forms.notifyicon;';
+  $message .= '$notify.icon = [System.Drawing.SystemIcons]::Information;';
+  $message .= '$notify.visible = $true;';
+  $message .= '$notify.showballoontip(20,'; 
+  $message .= '"' . $title . '"';
+  $message .= ','; 
+  $message .= '"' . $user . '@' . $host . ' (' . $computer . ') | ' . $pid . '"';
+  $message .= ','; 
+  $message .= '[system.windows.forms.tooltipicon]::None);';
+  $encoded = base64_encode(str_encode($message, "UTF-16LE"));
+  @notify   = @('powershell.exe', '-enc', $encoded );
+  $exec = exec(@notify);
+}
