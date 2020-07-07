@@ -13,8 +13,8 @@ on beacon_initial {
   $host     = $beacon['host'];
   $computer = $beacon['computer'];
   $pid      = $beacon['pid'];
-  $title    = " with title" . "\"" . "New Beacon!". "\"";
-  $message  = '\'' . "display notification " . "\"" . $user . '@' . $host . ' (' . $computer . ') | ' . $pid . "\"" . $title . '\'';
-  @notify   = @('osascript','-e', $message);
+  $title    = "New Beacon!";
+  $message  = $user . '@' . $host . ' (' . $computer . ') | ' . $pid;
+  @notify   = @('/usr/local/bin/terminal-notifier', '-message', $message, '-title', $title);
   exec(@notify);
 }
