@@ -3,7 +3,10 @@
 ###  Author: Sabri (@KINGSABRI)
 
 ### Usage ###
-# - the osascript is installed on MacOS by default
+# - the terminal-notifier can be installed by one of the following
+# $gem install terminal-notifier
+# or
+# $brew install terminal-notifier
 ### Output ###
 # Get a beacon and you will get desktop notifications
 
